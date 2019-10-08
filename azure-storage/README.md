@@ -1,36 +1,39 @@
 # Azure deployment
 This deployment includes deploying a storage account blob only under it's own resource group in canadacentral.  This is to be used for storage migration as part of the CWU Cloud Discovery project.
 
+## Terraform and Azure-CLI automated installations
+Run `install-prereqs.sh` to have these auto-installed for you
+
+## Terraform and Azure-CLI manual installation
 These are instructions for linux-based machines, however provider documentation is linked below if you want to run from another platform
 
-
-## Terraform
 Install [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html)
 ```
 wget https://releases.hashicorp.com/terraform/0.12.7/terraform_0.12.7_linux_amd64.zip
 unzip terraform_0.12.7_linux_amd64.zip
-sudo mv terraform /usr/local/bin/terraform
+mv terraform ~
+```
+
+Install [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
+```
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 ```
 
 
 ## Setting up prereqs for Azure provider
-1. Install [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
-```
-curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-```
-2. Login via Azure CLI
+1. Login via Azure CLI
 ```
 az login
 ```
-3. Grab your subscription id from the output of the following command
+2. Grab your subscription id from the output of the following command
 ```
 az account list
 ```
-4. Create new service principal, this is the account we'll use to create and delete resources via Terraform
+3. Create new service principal, this is the account we'll use to create and delete resources via Terraform
 ```
 az ad sp create-for-rbac --name cwu_terraform --role="Contributor" --scopes="/subscriptions/<SUBSCRIPTION_ID from above>"
 ```
-5. This will print a JSON payload similar to the following
+4. This will print a JSON payload similar to the following
 ```
 {
   "appId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
@@ -40,7 +43,7 @@ az ad sp create-for-rbac --name cwu_terraform --role="Contributor" --scopes="/su
   "tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 }
 ```
-6. Capture the appId, password and tenant.  Export them as follows
+5. Capture the appId, password and tenant.  Export them as follows
 ```
 export ARM_CLIENT_ID=<insert the appId from above>
 export ARM_SUBSCRIPTION_ID=<insert your subscription id>
@@ -67,3 +70,11 @@ Note that for integration into an application for use as an object store, for th
 ```
 azure storage account name == s3 access key
 azure storage access key == s3 secret key
+```
+
+## Run terraform to deprovision resources
+```
+terraform destroy
+
+```
+Have to type 'yes' for this to kick off after reviewing the plan.  This part will take a few mins
