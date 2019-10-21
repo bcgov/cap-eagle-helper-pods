@@ -4,6 +4,7 @@ LOCAL_PROJECT_BASE_PATH=~/git/; #unquoted for tilde expansion
 TEST_ONLY_UPSTREAM_TARGET="test-only";
 CAP_UPSTREAM_TARGET="cap";
 EPIC_UPSTREAM_TARGET="epic";
+TIMESTAMP_NOW=$(date "+%Y%m%d%H%M%S");
 
 if [ ! -z "${1}" ]; then ORIGIN_FORK=$1; fi
 if [ ! -z "${2}" ]; then LOCAL_PROJECT_BASE_PATH=$2; fi
@@ -69,6 +70,8 @@ updateFork(){
           echo "Starting rebase from upstream bcgov/cap-${_repo} onto local/${_repo}";
           git remote rm upstream;
           git remote add upstream "https://github.com/bcgov/cap-${_repo}.git";
+          git branch "rebase-cap-upstream-to-cap-local-${TIMESTAMP_NOW}";
+          git checkout "rebase-cap-upstream-to-cap-local-${TIMESTAMP_NOW}";
           git fetch upstream;
           git rebase "upstream/${_base_branch}";
           # git push -u origin "${_base_branch}";
@@ -78,6 +81,8 @@ updateFork(){
           echo "Starting rebase from upstream bcgov/${_repo} onto local/${_repo}";
           git remote rm upstream;
           git remote add upstream "https://github.com/bcgov/${_repo}.git";
+          git branch "rebase-eagle-upstream-to-cap-local-${TIMESTAMP_NOW}";
+          git checkout "rebase-eagle-upstream-to-cap-local-${TIMESTAMP_NOW}";
           git fetch upstream;
           git rebase "upstream/${_base_branch}";
           # git push -u origin "${_base_branch}";
@@ -114,16 +119,10 @@ processRepos ${CAP_UPSTREAM_TARGET};
 # to review and push.
 processRepos ${TEST_ONLY_UPSTREAM_TARGET};
 
-TIMESTAMP_NOW=$(date "+%Y%m%d%H%M%S");
-git branch "rebase-${TIMESTAMP_NOW}";
-git checkout "rebase-${TIMESTAMP_NOW}";
-
 # Check for new EPIC changes on the EPIC repos
 processRepos ${EPIC_UPSTREAM_TARGET};
 # Let the user know which repos have changes to look at and push up
 processRepos ${TEST_ONLY_UPSTREAM_TARGET};
-
-git commit -a -m "Rebasing cap-eagle repos from latest eagle repos ${TIMESTAMP_NOW}";
 
 # Manually review and push changes to origin here, which can then be PR'd to
 # the CAP repo upstream.
