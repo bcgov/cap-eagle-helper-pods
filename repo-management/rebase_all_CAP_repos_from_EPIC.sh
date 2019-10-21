@@ -114,10 +114,16 @@ processRepos ${CAP_UPSTREAM_TARGET};
 # to review and push.
 processRepos ${TEST_ONLY_UPSTREAM_TARGET};
 
+TIMESTAMP_NOW=$(date "+%Y%m%d%H%M%S");
+git branch "rebase-${TIMESTAMP_NOW}";
+git checkout "rebase-${TIMESTAMP_NOW}";
+
 # Check for new EPIC changes on the EPIC repos
 processRepos ${EPIC_UPSTREAM_TARGET};
 # Let the user know which repos have changes to look at and push up
 processRepos ${TEST_ONLY_UPSTREAM_TARGET};
+
+git commit -a -m "Rebasing cap-eagle repos from latest eagle repos ${TIMESTAMP_NOW}";
 
 # Manually review and push changes to origin here, which can then be PR'd to
 # the CAP repo upstream.
