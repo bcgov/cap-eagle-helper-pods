@@ -37,26 +37,38 @@ if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
     fi
     brew update;
-    brew install terraform azure-cli;
+    brew install terraform;
+    curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip";
+    unzip awscli-bundle.zip;
+    sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws;
 elif [[ "$PACKAGE_MANAGER" == "choco" ]]; then
     sudo PowerShell -NoProfile -ExecutionPolicy remotesigned -Command ". 'install_choco.ps1;"
     choco upgrade chocolatey;
-    choco install terraform azure-cli -y;
+    choco install terraform awscli -y;
 elif [[ "$PACKAGE_MANAGER" == "yum" ]]; then
     curl -o terraform.zip https://releases.hashicorp.com/terraform/0.12.7/terraform_0.12.7_linux_amd64.zip;
     unzip terraform.zip;
     mv terraform ~;
     rm terraform.zip;
-    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc;
-    sudo sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo';
     yum check-update;
-    sudo yum -y install azure-cli;
+    sudo yum -y install python;
+    curl -O https://bootstrap.pypa.io/get-pip.py;
+    python get-pip.py --user;
+    echo "export PATH=~/.local/bin:$PATH" > ~/.bash_profile;
+    source ~/.bash_profile;
+    pip install awscli --upgrade --user;
 elif [[ "$PACKAGE_MANAGER" == "apt" ]]; then
     curl -o terraform.zip https://releases.hashicorp.com/terraform/0.12.7/terraform_0.12.7_linux_amd64.zip;
     unzip terraform.zip;
     mv terraform ~;
     rm terraform.zip;
-    curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash;
+    apt-get update;
+    sudo apt-get install python;
+    curl -O https://bootstrap.pypa.io/get-pip.py;
+    python get-pip.py --user;
+    echo "export PATH=~/.local/bin:$PATH" > ~/.bash_profile;
+    source ~/.bash_profile;
+    pip install awscli --upgrade --user;
 else
     echo -e \\n"Packages not installed.\\n"\\n
     exit 1
