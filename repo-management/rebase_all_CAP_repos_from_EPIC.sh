@@ -104,6 +104,7 @@ processRepos(){
   updateFork ${_upstream_target} ${ORIGIN_FORK} ${LOCAL_PROJECT_BASE_PATH} "eagle-api" "develop";
   updateFork ${_upstream_target} ${ORIGIN_FORK} ${LOCAL_PROJECT_BASE_PATH} "eagle-admin" "develop";
   updateFork ${_upstream_target} ${ORIGIN_FORK} ${LOCAL_PROJECT_BASE_PATH} "eagle-public" "develop";
+  updateFork ${_upstream_target} ${ORIGIN_FORK} ${LOCAL_PROJECT_BASE_PATH} "eagle-mobile-inspections" "develop";
   updateFork ${_upstream_target} ${ORIGIN_FORK} ${LOCAL_PROJECT_BASE_PATH} "eagle-dev-guides" "master";
   updateFork ${_upstream_target} ${ORIGIN_FORK} ${LOCAL_PROJECT_BASE_PATH} "eagle-helper-pods" "master";
 }
