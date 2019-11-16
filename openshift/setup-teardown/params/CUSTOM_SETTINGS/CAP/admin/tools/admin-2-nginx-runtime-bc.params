@@ -1,1 +1,2 @@
 NAME=cap-eagle-admin-nginx-runtime
+GIT_REPO_URL=https://github.com/bcgov/cap-eagle-admin
