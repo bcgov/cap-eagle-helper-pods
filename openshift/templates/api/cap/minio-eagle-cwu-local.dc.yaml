@@ -43,12 +43,9 @@ objects:
                     secretKeyRef:
                       key: MINIO_SECRET_KEY
                       name: minio-local-keys
-                - name: MINIO_CONFIG_DIR
-                  value: /tmp
                 - name: MINIO_DATA_DIR
                   value: /data
-              image: >-
-                172.50.0.2:5000/openshift/minio@sha256:02f81d40a3515ab8ba4a311d73849e046d5d06cc2d68db938b33af45906fdded
+              image: ''
               imagePullPolicy: Always
               name: ${NAME}
               ports:
@@ -82,8 +79,8 @@ objects:
               - ${NAME}
             from:
               kind: ImageStreamTag
-              name: 'minio:stable'
-              namespace: openshift
+              name: "${IMAGESTREAM}"
+              namespace: "${NAMESPACE}"
           type: ImageChange
         - type: ConfigChange
   - apiVersion: v1
@@ -148,6 +145,14 @@ parameters:
 - name: NAME
   displayName: Name to apply to objects in the template
   value: cap-minio-eagle-dev-local
+  required: true
+- name: IMAGESTREAM
+  displayName: Minio image to deploy
+  value: minio:latest
+  required: true
+- name: NAMESPACE
+  displayName: Project name where image resides
+  value: bcgov
   required: true
 - name: MINIO_ACCESS_KEY
   displayName: Minio access key

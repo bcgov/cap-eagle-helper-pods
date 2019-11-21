@@ -36,12 +36,9 @@ objects:
                     secretKeyRef:
                       key: MINIO_AZURE_SECRET_KEY
                       name: minio-azure-keys
-                - name: MINIO_CONFIG_DIR
-                  value: /tmp
-                - name: MINIO_DATA_DIR
-                  value: /data
-              image: >-
-                172.50.0.2:5000/openshift/minio@sha256:02f81d40a3515ab8ba4a311d73849e046d5d06cc2d68db938b33af45906fdded
+                - name: MINIO_MODE
+                  value: gateway azure
+              image: ''
               imagePullPolicy: Always
               name: ${NAME}
               ports:
@@ -56,10 +53,6 @@ objects:
                   memory: 128Mi
               terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
-              # Next two lines are to override the entrypoint set by the minio image that forces it to run in local server mode
-              # We need it as an azure gateway
-              command: ["/opt/minio/minio"]
-              args: ["gateway", "azure", "--config-dir=${MINIO_CONFIG_DIR}"]
           dnsPolicy: ClusterFirst
           restartPolicy: Always
           schedulerName: default-scheduler
@@ -72,8 +65,8 @@ objects:
               - ${NAME}
             from:
               kind: ImageStreamTag
-              name: 'minio:stable'
-              namespace: openshift
+              name: "${IMAGESTREAM}"
+              namespace: "${NAMESPACE}"
           type: ImageChange
         - type: ConfigChange
     metadata:
@@ -132,6 +125,14 @@ parameters:
 - name: NAME
   displayName: Name to apply to objects in the template
   value: cap-minio-eagle-dev-azure
+  required: true
+- name: IMAGESTREAM
+  displayName: Minio image to deploy
+  value: minio:latest
+  required: true
+- name: NAMESPACE
+  displayName: Project name where image resides
+  value: bcgov
   required: true
 - name: MINIO_AZURE_ACCESS_KEY
   displayName: Minio Azure access key
