@@ -1,0 +1,7 @@
+NAME=cap-kamloops-app-bcgov-s3-storage-admin
+GROUP_NAME=cap-kamloops-app-bcgov-s3-storage-epic
+IMAGE_NAMESPACE=oabrei-dev
+APPLICATION_DOMAIN=cap-kamloops-app-bcgov-s3-storage-dev.pathfinder.gov.bc.ca
+TAG_NAME=dev
+REMOTE_API_PATH=https://cap-kamloops-app-bcgov-s3-storage-dev.pathfinder.gov.bc.ca/api
+REMOTE_PUBLIC_PATH=https://cap-kamloops-app-bcgov-s3-storage-dev.pathfinder.gov.bc.ca
