@@ -1,0 +1,3 @@
+NAME=cap-kamloops-app-kamloops-storage-public
+ANGULAR_BUILDER_IMAGE=cap-kamloops-app-kamloops-storage-public-angular-builder
+NGINX_RUNTIME_IMAGE=cap-kamloops-app-kamloops-storage-public-nginx-runtime
