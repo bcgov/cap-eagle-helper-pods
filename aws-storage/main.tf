@@ -3,12 +3,7 @@ provider "aws" {
   region  = "ca-central-1"
 }
 
-# Section for setting up KMS key and S3 bucket encrypted with that key
-resource "aws_kms_key" "bcgovcapkey" {
-  description             = "This key is used to encrypt bucket objects for bcgovcapstorage"
-  deletion_window_in_days = 10
-}
-
+# Section for setting up S3 bucket, encrypted and with metrics for reporting
 resource "aws_s3_bucket" "bcgovcapstorage" {
   bucket = "bcgovcapstorage"
   force_destroy = "true"
@@ -16,8 +11,7 @@ resource "aws_s3_bucket" "bcgovcapstorage" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = "${aws_kms_key.bcgovcapkey.arn}"
-        sse_algorithm     = "aws:kms"
+        sse_algorithm     = "AES256"
       }
     }
   }
@@ -26,6 +20,11 @@ resource "aws_s3_bucket" "bcgovcapstorage" {
     project = "cap"
     environment = "poc"
   }
+}
+
+resource "aws_s3_bucket_metric" "bcgovcapstorage" {
+  bucket = "${aws_s3_bucket.bcgovcapstorage.bucket}"
+  name   = "EntireBucket"
 }
 
 # Create user and access key for reading/writing into the S3 bucket
@@ -52,42 +51,24 @@ resource "aws_iam_policy" "bcgovcapstorage-owner" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "ListAllBuckets",
+            "Sid": "BucketList",
             "Effect": "Allow",
             "Action": [
-                "s3:ListAllMyBuckets"
+                "s3:PutAccountPublicAccessBlock",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAllMyBuckets",
+                "s3:HeadBucket"
             ],
-            "Resource": "arn:aws:s3:::*"
+            "Resource": "*"
         },
         {
-            "Sid": "ListObjectsInBucket",
+            "Sid": "BucketAccess",
             "Effect": "Allow",
-            "Action": [
-                "s3:ListBucket"
-            ],
+            "Action": "s3:*",
             "Resource": [
-                "arn:aws:s3:::bcgovcapstorage"
-            ]
-        },
-        {
-            "Sid": "AllObjectActions",
-            "Effect": "Allow",
-            "Action": "s3:*Object",
-            "Resource": [
+                "arn:aws:s3:::bcgovcapstorage",
                 "arn:aws:s3:::bcgovcapstorage/*"
             ]
-        },
-        {
-            "Sid": "KeyAccessForEncryption",
-            "Effect": "Allow",
-            "Action": [
-                "kms:Encrypt",
-                "kms:Decrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-                "kms:DescribeKey"
-            ],
-            "Resource": "arn:aws:kms:::key/${aws_kms_key.bcgovcapkey.key_id}"
         }
     ]
 }
