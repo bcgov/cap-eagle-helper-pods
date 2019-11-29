@@ -15,14 +15,14 @@ objects:
         app: ${NAME}
     spec:
       containers:
-        - env:
+        - name: ${NAME}
+          image: 'docker-registry.default.svc:5000/${NAMESPACE}/${IMAGE}'
+          imagePullPolicy: Always
+          env:
             - name: MINIO_ACCESS_KEY
               value: ${MINIO_ACCESS_KEY}
             - name: MINIO_SECRET_KEY
               value: ${MINIO_SECRET_KEY}
-          image: '${IMAGESTREAM}'
-          imagePullPolicy: Always
-          name: ${NAME}
           resources:
             limits:
               cpu: 150m
@@ -30,10 +30,25 @@ objects:
             requests:
               cpu: 50m
               memory: 128Mi
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-          command: ["./s3-benchmark"]
-          args: ["-a", "${MINIO_ACCESS_KEY}", "-s", "${MINIO_SECRET_KEY}", "-u", "${MINIO_SERVER_ADDRESS}", "-z", "${MINIO_OBJECT_SIZE}"]
+          command:
+            - ./s3-benchmark
+          args:
+            - -u
+            - ${MINIO_SERVER_ADDRESS}
+            - -a
+            - ${MINIO_ACCESS_KEY}
+            - -s
+            - ${MINIO_SECRET_KEY}
+            - -b
+            - ${MINIO_BUCKET_NAME}
+            - -d
+            - ${MINIO_DURATION}
+            - -l
+            - ${MINIO_REPEAT}
+            - -t
+            - ${MINIO_THREADS}
+            - -z
+            - ${MINIO_OBJECT_SIZE}
       restartPolicy: Never
       activeDeadlineSeconds: 900
       dnsPolicy: ClusterFirst
@@ -41,11 +56,15 @@ objects:
 parameters:
 - name: NAME
   displayName: Name to apply to objects in the template
-  value: cap-minio-eagle-dev-benchmark
+  value: cap-minio-eagle-tools-benchmark
   required: true
-- name: IMAGESTREAM
-  displayName: ImageStream to deploy, built from buildconfig template
-  value: registry/minio-benchmark:stable
+- name: NAMESPACE
+  displayName: Project name where image resides
+  value: oabrei-tools
+  required: true
+- name: IMAGE
+  displayName: Image to deploy, built from buildconfig template
+  value: minio-benchmark
   required: true
 - name: MINIO_SERVER_ADDRESS
   displayName: Address of minio server
@@ -57,7 +76,23 @@ parameters:
 - name: MINIO_SECRET_KEY
   displayName: Minio secret key for accessing server to be benchmarked
   required: true
+- name: MINIO_BUCKET_NAME
+  displayName: Bucket name to use for benchmarking, will attempt to be created if it doesn't already exist
+  value: s3-benchmark
+  required: true
+- name: MINIO_DURATION
+  displayName: Duration of each test in seconds
+  value: '10'
+  required: true
+- name: MINIO_REPEAT
+  displayName: Number of times to repeat test
+  value: '1'
+  required: true
+- name: MINIO_THREADS
+  displayName: Number of threads to run, usually used to simulate multi-part uploads
+  value: '1'
+  required: true
 - name: MINIO_OBJECT_SIZE
-  displayName: Object size to use for benchmarking. In bytes with postfix K, M, and G (default "1M")
+  displayName: Object size to use for benchmarking. In bytes with postfix K, M, and G
   value: 1M
   required: true

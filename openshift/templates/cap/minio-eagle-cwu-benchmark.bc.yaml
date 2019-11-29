@@ -79,7 +79,7 @@ parameters:
   value: https://github.com/bcgov/cap-eagle-helper-pods.git
 - name: VERSION
   required: true
-  value: 'stable'
+  value: 'latest'
 - name: GIT_REF
   displayName: Git Reference
   description: The git reference or branch.
