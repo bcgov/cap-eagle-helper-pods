@@ -1,0 +1,3 @@
+NAME=cap-data-generator-demo-admin
+ANGULAR_BUILDER_IMAGE=cap-data-generator-demo-admin-angular-builder
+NGINX_RUNTIME_IMAGE=cap-data-generator-demo-admin-nginx-runtime

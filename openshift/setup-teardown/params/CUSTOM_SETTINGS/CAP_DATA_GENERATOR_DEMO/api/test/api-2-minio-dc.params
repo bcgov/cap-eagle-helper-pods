@@ -1,0 +1,4 @@
+NAME=cap-data-generator-demo-api-minio
+GROUP_NAME=cap-data-generator-demo-epic
+MINIO_IMAGE_NAMESPACE=oabrei-tools
+MINIO_IMAGE_TAG=latest
