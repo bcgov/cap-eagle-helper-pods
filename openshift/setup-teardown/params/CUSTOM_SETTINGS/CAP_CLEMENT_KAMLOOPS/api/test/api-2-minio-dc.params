@@ -1,0 +1,4 @@
+NAME=cap-clement-kamloops-api-minio
+GROUP_NAME=cap-clement-kamloops-epic
+MINIO_IMAGE_NAMESPACE=oabrei-tools
+MINIO_IMAGE_TAG=latest
