@@ -7,3 +7,4 @@ DATABASE_SERVICE_NAME=cap-clement-kamloops-api-mongodb
 APP_IMAGE_NAME=cap-clement-kamloops-api
 APP_IMAGE_NAMESPACE=oabrei-prod
 APP_DEPLOYMENT_TAG=prod
+NODE_ENV=development
