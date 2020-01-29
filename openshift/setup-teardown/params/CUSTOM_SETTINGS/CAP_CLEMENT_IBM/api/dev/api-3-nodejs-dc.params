@@ -7,3 +7,4 @@ DATABASE_SERVICE_NAME=cap-clement-ibm-api-mongodb
 APP_IMAGE_NAME=cap-clement-ibm-api
 APP_IMAGE_NAMESPACE=oabrei-dev
 APP_DEPLOYMENT_TAG=dev
+NODE_ENV=development
