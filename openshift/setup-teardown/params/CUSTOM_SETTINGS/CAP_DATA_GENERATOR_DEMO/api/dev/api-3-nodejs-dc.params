@@ -7,4 +7,3 @@ DATABASE_SERVICE_NAME=cap-data-generator-demo-api-mongodb
 APP_IMAGE_NAME=cap-data-generator-demo-api
 APP_IMAGE_NAMESPACE=oabrei-dev
 APP_DEPLOYMENT_TAG=dev
-NODE_ENV=development
