@@ -1,4 +1,4 @@
 NAME=cap-data-generator-demo-api
-SOURCE_REPOSITORY_URL=https://github.com/ActionAnalytics/cap-eagle-api
-SOURCE_REPOSITORY_REF=expose-node-env
+SOURCE_REPOSITORY_URL=https://github.com/bcgov/cap-eagle-api
+SOURCE_REPOSITORY_REF=develop
 NODE_ENV=development
