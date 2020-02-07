@@ -1,4 +1,4 @@
 NAME=cap-clement-ibm-api
-SOURCE_REPOSITORY_URL=https://github.com/murpheux/cap-eagle-api
-SOURCE_REPOSITORY_REF=ibm
+SOURCE_REPOSITORY_URL=https://github.com/bcgov/cap-eagle-api
+SOURCE_REPOSITORY_REF=develop
 NODE_ENV=development
