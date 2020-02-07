@@ -1,5 +1,0 @@
-NAME=cap-clement-ibm-api-minio
-GROUP_NAME=cap-clement-ibm-epic
-MINIO_IMAGE_NAME=cap-clement-ibm-api-minio
-MINIO_IMAGE_NAMESPACE=oabrei-dev
-MINIO_IMAGE_TAG=dev

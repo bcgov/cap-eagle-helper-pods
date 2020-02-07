@@ -1,3 +1,0 @@
-NAME=cap-clement-ibm-public
-ANGULAR_BUILDER_IMAGE=cap-clement-ibm-public-angular-builder
-NGINX_RUNTIME_IMAGE=cap-clement-ibm-public-nginx-runtime

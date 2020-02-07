@@ -1,7 +1,0 @@
-NAME=cap-clement-ibm-admin
-GROUP_NAME=cap-clement-ibm-epic
-IMAGE_NAMESPACE=oabrei-test
-APPLICATION_DOMAIN=cap-clement-ibm-test.pathfinder.gov.bc.ca
-TAG_NAME=test
-REMOTE_API_PATH=https://cap-clement-ibm-test.pathfinder.gov.bc.ca/api
-REMOTE_PUBLIC_PATH=https://cap-clement-ibm-test.pathfinder.gov.bc.ca

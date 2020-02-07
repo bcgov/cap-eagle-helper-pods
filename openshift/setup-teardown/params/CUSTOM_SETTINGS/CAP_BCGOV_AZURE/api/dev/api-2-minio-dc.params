@@ -1,0 +1,5 @@
+NAME=cap-bcgov-azure-api-minio
+GROUP_NAME=cap-bcgov-azure-epic
+MINIO_IMAGE_NAME=cap-bcgov-azure-api-minio
+MINIO_IMAGE_NAMESPACE=tnhlex-dev
+MINIO_IMAGE_TAG=dev
