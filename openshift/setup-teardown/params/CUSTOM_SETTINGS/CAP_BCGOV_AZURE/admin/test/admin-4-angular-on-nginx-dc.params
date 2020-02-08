@@ -1,7 +1,7 @@
 NAME=cap-bcgov-azure-admin
 GROUP_NAME=cap-bcgov-azure-epic
 IMAGE_NAMESPACE=tnhlex-test
-APPLICATION_DOMAIN=cap-bcgov-azure-test.pathfinder.gov.bc.ca
+APPLICATION_DOMAIN=cap-bcgov-azure-test.apps.ocp4lab.clearwater.devops.gov.bc.ca
 TAG_NAME=test
-REMOTE_API_PATH=https://cap-bcgov-azure-test.pathfinder.gov.bc.ca/api
-REMOTE_PUBLIC_PATH=https://cap-bcgov-azure-test.pathfinder.gov.bc.ca
+REMOTE_API_PATH=https://cap-bcgov-azure-test.apps.ocp4lab.clearwater.devops.gov.bc.ca/api
+REMOTE_PUBLIC_PATH=https://cap-bcgov-azure-test.apps.ocp4lab.clearwater.devops.gov.bc.ca
