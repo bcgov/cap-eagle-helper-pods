@@ -5,3 +5,5 @@ MINIO_IMAGE_NAMESPACE=tnhlex-prod
 MINIO_IMAGE_TAG=prod
 STORAGE_CLASS=azure-disk
 STORAGE_PROVIDER=kubernetes.io/azure-disk
+MINIO_DATA_DIR=/data
+LOCAL_STORAGE_SIZE=20Gi
