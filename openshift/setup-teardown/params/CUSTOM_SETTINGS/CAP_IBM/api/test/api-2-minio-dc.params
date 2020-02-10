@@ -3,3 +3,5 @@ GROUP_NAME=cap-ibm-epic
 MINIO_IMAGE_NAME=cap-ibm-api-minio
 MINIO_IMAGE_NAMESPACE=oabrei-test
 MINIO_IMAGE_TAG=test
+STORAGE_CLASS=ibmc-block-bronze
+STORAGE_PROVIDER=ibm.io/ibmc-block

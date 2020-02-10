@@ -3,3 +3,5 @@ GROUP_NAME=cap-kamloops-data-generator-epic
 MINIO_IMAGE_NAME=cap-kamloops-data-generator-api-minio
 MINIO_IMAGE_NAMESPACE=oabrei-prod
 MINIO_IMAGE_TAG=prod
+STORAGE_CLASS=netapp-file-standard
+STORAGE_PROVIDER=kubernetes.io/netapp
