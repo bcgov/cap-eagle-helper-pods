@@ -1,6 +1,6 @@
 NAME=cap-bcgov-azure-api
 GROUP_NAME=cap-bcgov-azure-epic
-APPLICATION_DOMAIN=cap-bcgov-azure-dev.clouddiscovery-01dea2606d71f7a3540418b505a890bc-0002.mon01.containers.appdomain.cloud
+APPLICATION_DOMAIN=cap-bcgov-azure-dev.apps.ocp4lab.clearwater.devops.gov.bc.ca
 MINIO_HOST=cap-bcgov-azure-api-minio
 MINIO_SECRET_NAME=cap-bcgov-azure-api-minio-keys
 DATABASE_SERVICE_NAME=cap-bcgov-azure-api-mongodb
