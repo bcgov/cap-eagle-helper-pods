@@ -1,0 +1,19 @@
+# config file version
+apiVersion: 1
+
+# list of datasources to insert/update depending
+# what's available in the database
+datasources:  
+- name: "openshift-monitoring-datasource"
+  type: prometheus
+  access: proxy
+  url: https://<prometheus route goes here>
+  basicAuth: false
+  withCredentials: false
+  isDefault: true
+  jsonData:
+    tlsSkipVerify: true
+    httpHeaderName1: "Authorization"
+  secureJsonData:
+    httpHeaderValue1: "Bearer <token goes here>"
+  editable: true
