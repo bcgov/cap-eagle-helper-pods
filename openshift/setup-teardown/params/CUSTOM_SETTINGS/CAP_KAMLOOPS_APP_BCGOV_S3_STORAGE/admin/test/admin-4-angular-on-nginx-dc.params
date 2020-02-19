@@ -5,3 +5,4 @@ APPLICATION_DOMAIN=cap-kamloops-app-bcgov-s3-storage-test.pathfinder.gov.bc.ca
 TAG_NAME=test
 REMOTE_API_PATH=https://cap-kamloops-app-bcgov-s3-storage-test.pathfinder.gov.bc.ca/api
 REMOTE_PUBLIC_PATH=https://cap-kamloops-app-bcgov-s3-storage-test.pathfinder.gov.bc.ca
+KEYCLOAK_CLIENT_ID=cap-admin-console
